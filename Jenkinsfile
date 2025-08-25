@@ -16,7 +16,10 @@ pipeline {
 
         stage('Deploy') {
             when {
-                branch 'develop', 'main'
+                anyOf {
+                    branch 'develop'
+                    branch 'main'
+                }
             }
             steps {
                 script {
