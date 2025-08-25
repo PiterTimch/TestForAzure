@@ -23,6 +23,7 @@ pipeline {
             }
             steps {
                 script {
+		    sh 'chmod +x deploy.sh'
                     if (env.BRANCH_NAME == 'develop') {
                         sh './deploy.sh develop'
                     } else if (env.BRANCH_NAME == 'main') {
