@@ -23,6 +23,11 @@ namespace TestForAzure.Controllers
             return View();
         }
 
+        public int AddTest(int a, int b)
+        {
+            return a + b;
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
