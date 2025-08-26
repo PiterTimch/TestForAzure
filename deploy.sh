@@ -19,9 +19,9 @@ echo "Deploying $ENV..."
 # Зупиняємо сервіс
 sudo /bin/systemctl stop "$SERVICE"
 
-# Публікуємо .NET (чистимо попередній білд)
-dotnet clean TestForAzure.sln
-dotnet publish TestForAzure.sln -c Release -o /tmp/publish
+# Публікуємо тільки веб-проєкт
+dotnet clean TestForAzure/TestForAzure.csproj
+dotnet publish TestForAzure/TestForAzure.csproj -c Release -r linux-x64 --self-contained false -o /tmp/publish
 
 # Створюємо директорію, якщо її немає
 sudo /bin/mkdir -p "$TARGET_DIR"
