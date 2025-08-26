@@ -16,15 +16,24 @@ fi
 
 echo "Deploying $ENV..."
 
-sudo systemctl stop $SERVICE
+# Зупиняємо сервіс
+sudo /bin/systemctl stop "$SERVICE"
 
+# Публікуємо .NET (чистимо попередній білд)
+dotnet clean TestForAzure.sln
 dotnet publish TestForAzure.sln -c Release -o /tmp/publish
 
-sudo rm -rf $TARGET_DIR/*
-sudo cp -r /tmp/publish/* $TARGET_DIR/
+# Створюємо директорію, якщо її немає
+sudo /bin/mkdir -p "$TARGET_DIR"
 
-sudo systemctl start $SERVICE
+# Чистимо цільову директорію і копіюємо нові файли
+sudo /bin/rm -rf "$TARGET_DIR"/*
+sudo /bin/cp -r /tmp/publish/* "$TARGET_DIR"/
 
-sudo systemctl reload nginx
+# Запускаємо сервіс знову
+sudo /bin/systemctl start "$SERVICE"
+
+# Перезавантажуємо nginx (щоб підтягнув нові конфіги/сайти)
+sudo /bin/systemctl reload nginx
 
 echo "$ENV deployed successfully!"
