@@ -4,9 +4,9 @@ set -e
 ENV=$1
 
 if [ "$ENV" == "develop" ]; then
-    TARGET_URL="http://local.test.jenkins.com/develop/"
+    TARGET_URL="http://local.test.jenkins.com/develop"
 elif [ "$ENV" == "production" ]; then
-    TARGET_URL="http://local.test.jenkins.com/"
+    TARGET_URL="http://local.test.jenkins.com"
 else
     echo "Unknown environment: $ENV"
     exit 1
