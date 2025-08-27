@@ -32,5 +32,24 @@ pipeline {
                 }
             }
         }
+	
+	stage('Health check'){
+	    when {
+	        anyOf {
+ 		    branch 'develop'
+                    branch 'main'
+		}
+            }
+	    steps {
+	    	script {
+		    sh 'chmod +x health_check.sh'
+                    if (env.BRANCH_NAME == 'develop') {
+                        sh './health_check.sh develop'
+                    } else if (env.BRANCH_NAME == 'main') {
+                        sh './health_check.sh production'
+                    }
+                }
+            }
+	}
     }
 }
