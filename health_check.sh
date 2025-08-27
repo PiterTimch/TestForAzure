@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 ENV=$1
